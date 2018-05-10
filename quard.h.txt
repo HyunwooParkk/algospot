@@ -1,0 +1,152 @@
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+
+typedef struct Tree{
+	char key;
+	Tree *n1;
+	Tree *n2;
+	Tree *n3;
+	Tree *n4;
+	bool chk;
+
+}Node;
+
+Node *root=NULL;
+
+Node *newNode(char data)
+{
+	Node *newT;
+	newT=(Node*)malloc(sizeof(Node));
+
+	newT->key=data;
+	newT->n1=NULL;
+	newT->n2=NULL;
+	newT->n3=NULL;
+	newT->n4=NULL;
+	newT->chk=false;
+
+	return newT;
+
+}
+
+void addTree(Node *P, char data)
+{
+	Node *ptr;
+	Node *newT=newNode(data);
+	if(data!= 'x')
+	{
+		newT->chk=true;
+	}
+
+	if(P==NULL)
+	{
+		root=newT;
+		return;
+	}
+	ptr=P;
+	while(ptr)
+	{
+		if(ptr->n1==NULL)
+		{
+			ptr->n1=newT;
+			break;
+		}
+		else if(ptr->n1->key=='x' && !(ptr->n1->chk))
+		{
+			ptr=ptr->n1;
+			continue;
+		}
+
+		if(ptr->n2==NULL){
+			ptr->n2=newT;
+			break;
+		}
+		else if(ptr->n2->key=='x' && !(ptr->n2->chk))
+		{
+			ptr=ptr->n2;
+			continue;
+		}
+
+		if(ptr->n3==NULL)
+		{
+			ptr->n3=newT;
+			break;
+		}
+		else if(ptr->n3->key=='x' && !(ptr->n3->chk))
+		{
+			ptr=ptr->n3;
+			continue;
+		}
+
+		if(ptr->n4==NULL)
+		{
+			ptr->chk=true;
+			ptr->n4=newT;
+			break;
+		}
+		else if(ptr->n4->key == 'x' && !(ptr->n4->chk))
+		{
+			ptr=ptr->n4;
+			continue;
+		}
+	}
+}
+
+void UpSideDown(Node *T)
+{
+	printf("%c", T->key);
+	if(T->n3)
+		UpSideDown(T->n3);
+	if(T->n4)
+		UpSideDown(T->n4);
+	if(T->n1)
+		UpSideDown(T->n1);
+	if(T->n2)
+		UpSideDown(T->n2);
+}
+
+void delTree(Node *T)
+{
+	if(T->n1)
+		delTree(T->n1);
+	if(T->n2)
+		delTree(T->n2);
+	if(T->n3)
+		delTree(T->n3);
+	if(T->n4)
+		delTree(T->n4);
+	free(T);
+}
+
+
+
+
+---------------------------------------------------------------------------------------------
+
+#include "quard.h"
+#include <string.h>
+
+int main(void){
+	Node *ptr;
+	int TC;
+	scanf("%d", &TC);
+
+	for (int s = 0; s < TC; s++){
+		char S[1001];
+		scanf("%s", S);
+
+		for (unsigned int i = 0; i < strlen(S); i++){
+			addTree(root, S[i]);
+		}
+
+		ptr = root;
+		UpSideDown(ptr);
+		printf("\n");
+
+		delTree(root);
+		root = NULL;
+	}
+	
+	return 0;
+}
