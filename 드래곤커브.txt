@@ -1,0 +1,89 @@
+#include <iostream>
+#include <cstring>
+#include <string>
+#include <stack>
+#include <queue>
+
+using namespace std;
+
+int map[10005][10005];
+int x,y,nx,ny,d,g;
+int n,m;
+int dx[4]={1,0,-1,0};
+int dy[4]={0,-1,0,1};
+vector<int> cr;
+
+
+int get_result(){
+	int ans=0;
+	for(int i=0; i<20; i++)
+	{
+		for(int j=0; j<20; j++)
+		{
+			if(map[i][j] != 0 && map[i+1][j]!=0 && map[i][j+1] != 0 &&  map[i+1][j+1]!=0)
+			{
+
+				ans++;
+			}
+		}
+	}
+	return ans;
+}
+
+
+void idx()
+{
+	int sz=cr.size();
+	
+	for(int i=0; i<sz; i++)
+	{
+		d=cr[sz-i-1];
+		//printf("¹øÂ°  ; %d \n", d);
+		switch(d)
+		{
+		case 0:
+			d=1;
+			break;
+		case 1:
+			d=2;
+			break;
+		case 2:
+			d=3;
+			break;
+		case 3:
+			d=0;
+			break;
+		}
+		cr.push_back(d);
+		nx=nx+dx[d];
+		ny=ny+dy[d];
+		map[nx][ny]=1;
+	
+		
+	}
+	
+		
+}
+int main(void)
+{
+	int C;
+	scanf("%d", &C);
+	for(int i=1; i<=C; i++)
+	{
+		cin >> x >> y >> d >>g;
+		cr.clear();
+		
+		map[x][y]=1;
+
+		
+		nx=x+dx[d];
+		ny=y+dy[d];
+		cr.push_back(d);
+		map[nx][ny]=1;
+
+		while(g--)
+			idx();
+	}
+
+	cout << get_result() <<endl;
+}

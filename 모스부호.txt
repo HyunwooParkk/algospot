@@ -1,0 +1,43 @@
+#include <iostream>
+#include <cstring>
+#include <string>
+
+/*
+3 
+2 2 4
+4 8 13
+6 4 1
+*/
+
+using namespace std;
+
+int n,m,k,C;
+
+void check(int idx, int chk, string ret)
+{
+	if(idx== 0 && chk ==0)
+	{
+		if(k==1)
+			cout<< ret<< endl;
+		k--;
+		return;
+
+	}
+	if(idx!= 0)
+		check(idx-1, chk, ret+"-");
+	if(chk!= 0)
+		check(idx,chk-1,ret+"o");
+
+}
+int main(void)
+{
+	scanf("%d", &C);
+	for(int i=0; i<C; i++)
+	{
+		scanf("%d %d %d", &n,&m,&k);
+		check(n,m,"");
+
+
+	}
+
+}
