@@ -2,6 +2,9 @@
 int h[1000];
 int n;
 
+/*
+http://procdiaru.tistory.com/3
+*/
 // 최댓값 구하는 함수
 int max(int a, int b)
 {

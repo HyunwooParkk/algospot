@@ -32,9 +32,14 @@ int check(int num)
 			flag=1;
 			break;
 		}
+
+	/*
+	쭉 다 찾다가 되는걸 찾는순간 돌면서 check값을 리턴하면서 return max값을 다더한다
+	따라서 만약에 return 0 이 아닌 다른 수로 하면 return a로 하면 a+이전의 i들의 합이 나온다.
+	*/
 	if(flag==-1)
 	{
-		//printf("dsafa\n");
+		printf("dsafa\n");
 		return 0;
 	}
 	if(num==10)
